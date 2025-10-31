@@ -39,7 +39,7 @@
 
   sudo apt-get update
   sudo apt-get install docker.io -y
-  sudo usermod -aG docker $USER  # Replace with your system's username, e.g., 'ubuntu'
+  sudo usermod -aG docker $USER 
   newgrp docker
   sudo chmod 777 /var/run/docker.sock
   ```
@@ -110,9 +110,9 @@ docker build --build-arg TMDB_V3_API_KEY=<your-api-key> -t netflix .
    sudo apt update
    sudo apt install fontconfig openjdk-17-jre
    java -version
-   openjdk version "17.0.8" 2023-07-18
-   OpenJDK Runtime Environment (build 17.0.8+7-Debian-1deb12u1)
-   OpenJDK 64-Bit Server VM (build 17.0.8+7-Debian-1deb12u1, mixed mode, sharing)
+   openjdk version "25.0.8" 2025-07-18
+   OpenJDK Runtime Environment (build 25.0.8+7-Debian-1deb12u1)
+   OpenJDK 64-Bit Server VM (build 25.0.8+7-Debian-1deb12u1, mixed mode, sharing)
 
    #jenkins
    sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
@@ -140,8 +140,6 @@ Install below plugins
 2 SonarQube Scanner (Install without restart)
 
 3 NodeJs Plugin (Install Without restart)
-
-4 Email Extension Plugin
 
 ### **Configure Java and Nodejs in Global Tool Configuration**
 
@@ -230,7 +228,7 @@ Certainly, here are the instructions without step numbers:
 - After installing the Dependency-Check plugin, you need to configure the tool.
 - Go to "Dashboard" → "Manage Jenkins" → "Global Tool Configuration."
 - Find the section for "OWASP Dependency-Check."
-- Add the tool's name, e.g., "DP-Check."
+- Add the tool's name
 - Save your settings.
 
 **Install Docker Tools and Docker Plugins:**
@@ -316,15 +314,15 @@ pipeline{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
                        sh "docker build --build-arg TMDB_V3_API_KEY=<yourapikey> -t netflix ."
-                       sh "docker tag netflix nasi101/netflix:latest "
-                       sh "docker push nasi101/netflix:latest "
+                       sh "docker tag netflix keval7061/netflix:latest "
+                       sh "docker push keval7061/netflix:latest "
                     }
                 }
             }
         }
         stage("TRIVY"){
             steps{
-                sh "trivy image nasi101/netflix:latest > trivyimage.txt"
+                sh "trivy image keval7061/netflix:latest > trivyimage.txt"
             }
         }
         stage('Deploy to container'){
@@ -657,11 +655,6 @@ That's it! You've successfully installed and set up Grafana to work with Prometh
 
 2. **Configure Prometheus Plugin Integration:**
    - Integrate Jenkins with Prometheus to monitor the CI/CD pipeline.
-
-**Phase 5: Notification**
-
-1. **Implement Notification Services:**
-   - Set up email notifications in Jenkins or other notification mechanisms.
 
 # Phase 6: Kubernetes
 
